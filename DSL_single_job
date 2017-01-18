@@ -1,0 +1,12 @@
+job('JobXsingle') {
+   
+    steps {
+        shell ("sshpass -p kislakapusta17 ssh -p 22 user@master \"(sudo docker stop apache2; sudo docker rm apache2;) || true \" ")
+        shell ("sshpass -p kislakapusta17 ssh -p 22 user@master \"sudo docker run --name apache2 -ti -d  -p 8888:80 -p 8822:22  zmey/apache;\" ")
+        shell ("sshpass -p kislakapusta17 ssh -p 22 user@master \"sudo docker exec apache2 bash -c '/etc/init.d/ssh start'\" ")
+        shell ("sshpass -p kislakapusta17 ssh -p 22 user@master \"sudo docker exec apache2 bash -c '/etc/init.d/apache2 start'\" ")
+        shell ("sshpass -p kislakapusta ssh -p 8822 root@master \"echo 'Get ready!' > /var/www/html/index.html\" ")
+        shell ("sleep 30")
+        shell ("sshpass -p kislakapusta ssh -p 8822 root@master \"echo 'Hello world! <br> \$(date)' > /var/www/html/index.html\" ")
+    }
+}

@@ -1,0 +1,6 @@
+job('JobX') {
+   
+    steps {
+        shell ("sshpass -p kislakapusta ssh -p 8822 root@master \"echo 'Hello world! <br> \$(date)' > /var/www/html/index.html\" ")
+    }
+}
